@@ -1,0 +1,148 @@
+using BeybladeX.Application.DTOs;
+using BeybladeX.Domain.Entities;
+
+namespace BeybladeX.Application.Mappings;
+
+public static class PecaMappingExtensions
+{
+    public static PecaDto ToDto(this Peca peca) => peca switch
+    {
+        LockChip lc => new PecaDto(
+            Id: lc.Id,
+            Nome: lc.Nome,
+            CodigoTakaraTomy: lc.CodigoTakaraTomy,
+            CodigoHasbro: lc.CodigoHasbro,
+            Classificacao: lc.Classificacao.ToString(),
+            Sistema: lc.Sistema.ToString(),
+            Peso: lc.Peso,
+            DataLancamento: lc.DataLancamento,
+            DirecaoGiro: lc.DirecaoGiro.ToString(),
+            Tipo: null,
+            Ataque: null,
+            Defesa: null,
+            Stamina: null,
+            Dash: null,
+            ResistenciaABurst: null),
+
+        Blade b => new PecaDto(
+            Id: b.Id,
+            Nome: b.Nome,
+            CodigoTakaraTomy: b.CodigoTakaraTomy,
+            CodigoHasbro: b.CodigoHasbro,
+            Classificacao: b.Classificacao.ToString(),
+            Sistema: b.Sistema.ToString(),
+            Peso: b.Peso,
+            DataLancamento: b.DataLancamento,
+            DirecaoGiro: b.DirecaoGiro.ToString(),
+            Tipo: b.Tipo.ToString(),
+            Ataque: b.Ataque,
+            Defesa: b.Defesa,
+            Stamina: b.Stamina,
+            Dash: null,
+            ResistenciaABurst: null),
+
+        OverBlade ob => new PecaDto(
+            Id: ob.Id,
+            Nome: ob.Nome,
+            CodigoTakaraTomy: ob.CodigoTakaraTomy,
+            CodigoHasbro: ob.CodigoHasbro,
+            Classificacao: ob.Classificacao.ToString(),
+            Sistema: ob.Sistema.ToString(),
+            Peso: ob.Peso,
+            DataLancamento: ob.DataLancamento,
+            DirecaoGiro: ob.DirecaoGiro.ToString(),
+            Tipo: ob.Tipo.ToString(),
+            Ataque: ob.Ataque,
+            Defesa: ob.Defesa,
+            Stamina: ob.Stamina,
+            Dash: null,
+            ResistenciaABurst: null),
+
+        MetalBlade mb => new PecaDto(
+            Id: mb.Id,
+            Nome: mb.Nome,
+            CodigoTakaraTomy: mb.CodigoTakaraTomy,
+            CodigoHasbro: mb.CodigoHasbro,
+            Classificacao: mb.Classificacao.ToString(),
+            Sistema: mb.Sistema.ToString(),
+            Peso: mb.Peso,
+            DataLancamento: mb.DataLancamento,
+            DirecaoGiro: mb.DirecaoGiro.ToString(),
+            Tipo: mb.Tipo.ToString(),
+            Ataque: mb.Ataque,
+            Defesa: mb.Defesa,
+            Stamina: mb.Stamina,
+            Dash: null,
+            ResistenciaABurst: null),
+
+        AssistBlade ab => new PecaDto(
+            Id: ab.Id,
+            Nome: ab.Nome,
+            CodigoTakaraTomy: ab.CodigoTakaraTomy,
+            CodigoHasbro: ab.CodigoHasbro,
+            Classificacao: ab.Classificacao.ToString(),
+            Sistema: ab.Sistema.ToString(),
+            Peso: ab.Peso,
+            DataLancamento: ab.DataLancamento,
+            DirecaoGiro: ab.DirecaoGiro.ToString(),
+            Tipo: ab.Tipo.ToString(),
+            Ataque: ab.Ataque,
+            Defesa: ab.Defesa,
+            Stamina: ab.Stamina,
+            Dash: null,
+            ResistenciaABurst: null),
+
+        BladeRatchetIntegrada bri => new PecaDto(
+            Id: bri.Id,
+            Nome: bri.Nome,
+            CodigoTakaraTomy: bri.CodigoTakaraTomy,
+            CodigoHasbro: bri.CodigoHasbro,
+            Classificacao: bri.Classificacao.ToString(),
+            Sistema: bri.Sistema.ToString(),
+            Peso: bri.Peso,
+            DataLancamento: bri.DataLancamento,
+            DirecaoGiro: bri.DirecaoGiro.ToString(),
+            Tipo: bri.Tipo.ToString(),
+            Ataque: bri.Ataque,
+            Defesa: bri.Defesa,
+            Stamina: bri.Stamina,
+            Dash: null,
+            ResistenciaABurst: null),
+
+        Ratchet r => new PecaDto(
+            Id: r.Id,
+            Nome: r.Nome,
+            CodigoTakaraTomy: r.CodigoTakaraTomy,
+            CodigoHasbro: r.CodigoHasbro,
+            Classificacao: r.Classificacao.ToString(),
+            Sistema: r.Sistema.ToString(),
+            Peso: r.Peso,
+            DataLancamento: r.DataLancamento,
+            DirecaoGiro: null,
+            Tipo: null,
+            Ataque: r.Ataque,
+            Defesa: r.Defesa,
+            Stamina: r.Stamina,
+            Dash: null,
+            ResistenciaABurst: null),
+
+        Bit bit => new PecaDto(
+            Id: bit.Id,
+            Nome: bit.Nome,
+            CodigoTakaraTomy: bit.CodigoTakaraTomy,
+            CodigoHasbro: bit.CodigoHasbro,
+            Classificacao: bit.Classificacao.ToString(),
+            Sistema: bit.Sistema.ToString(),
+            Peso: bit.Peso,
+            DataLancamento: bit.DataLancamento,
+            DirecaoGiro: null,
+            Tipo: bit.Tipo.ToString(),
+            Ataque: bit.Ataque,
+            Defesa: bit.Defesa,
+            Stamina: bit.Stamina,
+            Dash: bit.Dash,
+            ResistenciaABurst: bit.ResistenciaABurst),
+
+        _ => throw new InvalidOperationException($"Tipo de peça não mapeado: {peca.GetType().Name}")
+    };
+}

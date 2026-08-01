@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BeybladeX.Api/BeybladeX.Api.csproj" />
+    <Project Path="src/BeybladeX.Application/BeybladeX.Application.csproj" />
+    <Project Path="src/BeybladeX.Domain/BeybladeX.Domain.csproj" />
+    <Project Path="src/BeybladeX.Infrastructure/BeybladeX.Infrastructure.csproj" />
+  </Folder>
+</Solution>
