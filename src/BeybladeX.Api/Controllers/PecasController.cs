@@ -1,5 +1,6 @@
 using BeybladeX.Application.DTOs;
 using BeybladeX.Application.Interfaces;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,12 @@ namespace BeybladeX.Api.Controllers;
 public class PecasController : ControllerBase
 {
     private readonly IPecaService _service;
+    private readonly IValidator<string> _nomeValidator;
 
-    public PecasController(IPecaService service)
+    public PecasController(IPecaService service, IValidator<string> nomeValidator)
     {
         _service = service;
+        _nomeValidator = nomeValidator;
     }
 
     /// <summary>
@@ -31,6 +34,8 @@ public class PecasController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> ObterPorNome([FromRoute] string nome, CancellationToken ct)
     {
+        await _nomeValidator.ValidateAndThrowAsync(nome, ct);
+
         var result = await _service.ObterPorNomeAsync(nome, ct);
         return Ok(result);
     }

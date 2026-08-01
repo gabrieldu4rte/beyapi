@@ -86,6 +86,9 @@ public class PecaConfiguration : IEntityTypeConfiguration<Peca>
             .IsUnique()
             .HasDatabaseName("ix_pecas_nome");
 
+        builder.HasIndex("tipo_peca")
+            .HasDatabaseName("ix_pecas_tipo_peca");
+
         builder.HasIndex(p => p.Sistema)
             .HasDatabaseName("ix_pecas_sistema");
 

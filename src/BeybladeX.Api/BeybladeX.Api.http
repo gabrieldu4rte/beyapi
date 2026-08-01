@@ -1,6 +1,11 @@
 @BeybladeX.Api_HostAddress = http://localhost:5049
 
-GET {{BeybladeX.Api_HostAddress}}/weatherforecast/
+GET {{BeybladeX.Api_HostAddress}}/api/v1/pecas/Dran Sword
+Accept: application/json
+
+###
+
+GET {{BeybladeX.Api_HostAddress}}/health
 Accept: application/json
 
 ###
