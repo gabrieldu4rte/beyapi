@@ -82,11 +82,3 @@ Recursos disponíveis em desenvolvimento:
 
 - Swagger UI: `/swagger`
 - Health check: `/health`
-
-## Testes
-
-Ainda não implementados neste repositório. A estrutura planejada prevê três projetos (`BeybladeX.Domain.Tests`, `BeybladeX.Application.Tests`, `BeybladeX.Api.IntegrationTests`), usando xUnit, Moq, FluentAssertions e Testcontainers.
-
-## Licença
-
-Não definida.
