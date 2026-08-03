@@ -1,6 +1,6 @@
 # BeybladeX API
 
-API REST pública e gratuita para consulta de peças Beyblade X, cobrindo os sistemas BX, UX, CX e CX/BX Expand-Infinity.
+API REST pública e gratuita para consulta de peças Beyblade X, cobrindo os sistemas BX, UX, CX e Expand-Infinity.
 
 ## Status
 
