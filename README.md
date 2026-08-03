@@ -1,10 +1,10 @@
 # BeybladeX API
 
-API REST pública e gratuita para consulta de peças Beyblade X, cobrindo os sistemas BX, UX, CX e Expand-Infinity.
+Free, public REST API for looking up Beyblade X parts, covering the BX, UX, CX and CX/BX Expand-Infinity systems.
 
 ## Status
 
-MVP em desenvolvimento. Único recurso disponível: consulta de peça por nome. Endpoints de listagem, filtros e busca textual estão previstos na arquitetura, mas ainda não implementados.
+MVP under development. Only resource currently available: look up a part by name. Listing endpoints, filters, and text search are planned in the architecture but not yet implemented.
 
 ## Stack
 
@@ -13,48 +13,48 @@ MVP em desenvolvimento. Único recurso disponível: consulta de peça por nome. 
 - FluentValidation
 - Serilog
 - Swashbuckle (Swagger / OpenAPI)
-- Microsoft.AspNetCore.RateLimiting (nativo)
+- Microsoft.AspNetCore.RateLimiting (built-in)
 
-## Arquitetura
+## Architecture
 
-Clean Architecture, com dependências sempre apontando para dentro:
+Clean Architecture, with dependencies always pointing inward:
 
 ```
-BeybladeX.Api            -> Application, Infrastructure (composição / injeção de dependência)
+BeybladeX.Api            -> Application, Infrastructure (composition / dependency injection only)
 BeybladeX.Infrastructure -> Application, Domain
 BeybladeX.Application    -> Domain
-BeybladeX.Domain         -> (nenhuma dependência)
+BeybladeX.Domain         -> (no dependencies)
 ```
 
-- **Domain**: entidade base abstrata `Peca` e oito subtipos (`LockChip`, `Blade`, `OverBlade`, `MetalBlade`, `AssistBlade`, `Ratchet`, `Bit`, `BladeRatchetIntegrada`), mapeados via EF Core TPH em uma única tabela (`pecas`), com coluna discriminadora `tipo_peca`.
-- **Application**: `PecaService` concentra a regra de negócio; mapeamento manual de entidade para DTO (sem AutoMapper); paginação (`PagedResult<T>` / `PaginationParams`) já modelada para uso futuro.
-- **Infrastructure**: `AppDbContext`, configuração via Fluent API (nomenclatura snake_case, enums persistidos como string), repositório com consultas somente leitura (`AsNoTracking()`).
-- **Api**: controllers acessam apenas `IPecaService` — nunca o `DbContext` ou o repositório diretamente. Tratamento de erros centralizado em middleware, convertendo exceções de domínio e de validação em respostas HTTP apropriadas.
+- **Domain**: abstract base entity `Peca` and eight subtypes (`LockChip`, `Blade`, `OverBlade`, `MetalBlade`, `AssistBlade`, `Ratchet`, `Bit`, `BladeRatchetIntegrada`), mapped via EF Core TPH into a single table (`pecas`), with a discriminator column (`tipo_peca`).
+- **Application**: `PecaService` holds the business logic; entity-to-DTO mapping is manual (no AutoMapper); pagination (`PagedResult<T>` / `PaginationParams`) is already modeled for future use.
+- **Infrastructure**: `AppDbContext`, Fluent API configuration (snake_case naming, enums persisted as strings), read-only repository queries (`AsNoTracking()`).
+- **Api**: controllers only depend on `IPecaService` — never the `DbContext` or the repository directly. Error handling is centralized in middleware, converting domain and validation exceptions into the appropriate HTTP responses.
 
-Regra de projeto: o MVP é somente leitura. Nenhuma operação de escrita é exposta pela API.
+Project rule: the MVP is read-only. No write operations are exposed by the API.
 
-## Endpoint disponível
+## Available endpoint
 
 ```
 GET /api/v1/pecas/{nome}
 ```
 
-Busca case-insensitive pelo nome da peça.
+Case-insensitive lookup by part name.
 
-| Código | Condição |
-|--------|----------|
-| 200 | Peça encontrada |
-| 400 | Nome vazio, em branco ou com mais de 120 caracteres |
-| 404 | Peça não encontrada |
+| Code | Condition |
+|------|-----------|
+| 200 | Part found |
+| 400 | Name empty, blank, or longer than 120 characters |
+| 404 | Part not found |
 
-## Pré-requisitos
+## Prerequisites
 
 - .NET 10 SDK
-- PostgreSQL em execução localmente (ou acessível via connection string)
+- PostgreSQL running locally (or reachable via connection string)
 
-## Configuração local
+## Local setup
 
-O arquivo `appsettings.json` de cada ambiente não é versionado. Crie `src/BeybladeX.Api/appsettings.Development.json` com a connection string do seu banco, por exemplo:
+The `appsettings.json` file for each environment is not versioned. Create `src/BeybladeX.Api/appsettings.Development.json` with your database connection string, for example:
 
 ```json
 {
@@ -64,21 +64,21 @@ O arquivo `appsettings.json` de cada ambiente não é versionado. Crie `src/Beyb
 }
 ```
 
-## Executando o projeto
+## Running the project
 
-Aplicar as migrations:
+Apply migrations:
 
 ```bash
 dotnet ef database update --project src/BeybladeX.Infrastructure --startup-project src/BeybladeX.Api
 ```
 
-Iniciar a API:
+Start the API:
 
 ```bash
 dotnet run --project src/BeybladeX.Api
 ```
 
-Recursos disponíveis em desenvolvimento:
+Available in development:
 
 - Swagger UI: `/swagger`
 - Health check: `/health`
